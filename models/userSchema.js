@@ -43,7 +43,7 @@ userSchema.methods.generateAuthToken = async function(){
        let token= jwt.sign({_id: this._id},process.env.SECRET_KEY);//left id is of schema
        this.tokens= this.tokens.concat({token:token}); //LEFT TOKEN is of userschema.right is of upper generated
         await this.save();
-        // console.log('my token',token);
+        // console.log(' token',token);
         return token; //
       }
       catch(err){

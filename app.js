@@ -11,4 +11,4 @@ app.use(require('./routers/auth'));
 // const User = require('./models/userSchema');
 const PORT=process.env.PORT;
   
-app.listen(PORT,()=>console.log(`listening to port ${PORT}`));
+app.listen(process.env.PORT || 3000,()=>console.log(`listening to port ${PORT}`));

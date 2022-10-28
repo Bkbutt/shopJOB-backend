@@ -12,7 +12,6 @@ const e = require('express');
 
 
 
-router.get('/findjobs',(req,res)=>{res.send('here you can see jobs offeredd')});
 
 //sgnup
 router.post('/register',async (req, res)=>{
@@ -80,21 +79,21 @@ router.post('/register',async (req, res)=>{
           
 // fill post job form 
 
-       router.post('/postjob',async(req,res)=>{ 
+      //  router.post('/postjob',async(req,res)=>{ 
 
-            const {shopname,img,imgback,jobname,timing,shoploc,age, workersReq,experience,salary,description}= req.body;
+      //       const {shopname,img,imgback,jobname,timing,shoploc,age, workersReq,experience,salary,description}= req.body;
 
-                if(!shopname||!jobname||!timing||!shoploc||!workersReq||!salary){ //required credentials
-                return res.status(422).json({error:"Please fill the required fields"}); }
-           try{
-                     const post = new jobPost({shopname,img,imgback,jobname,timing,shoploc,age,workersReq,experience,salary,description});//dbname:nameoffrontendField
-                     await post.save();
-             } 
+      //           if(!shopname||!jobname||!timing||!shoploc||!workersReq||!salary){ //required credentials
+      //           return res.status(422).json({error:"Please fill the required fields"}); }
+      //      try{
+      //                const post = new jobPost({shopname,img,imgback,jobname,timing,shoploc,age,workersReq,experience,salary,description});//dbname:nameoffrontendField
+      //                await post.save();
+      //        } 
 
-            catch(err){
-                console.log(err);
-                }                           //  console.log(req.body); // /(/ res.json({message: req.body})    
-         });
+      //       catch(err){
+      //           console.log(err);
+      //           }                           //  console.log(req.body); // /(/ res.json({message: req.body})    
+      //    });
 
 //settings
    // 

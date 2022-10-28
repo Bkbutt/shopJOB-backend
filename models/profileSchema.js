@@ -2,8 +2,8 @@
 const { default: mongoose } = require('mongoose');
 const mangoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const bcryptinzi = require('bcrypt-inzi');
-const { select } = require('underscore');
+// const bcryptinzi = require('bcrypt-inzi');
+// const { select } = require('underscore');
 const jwt = require('jsonwebtoken');
 
 

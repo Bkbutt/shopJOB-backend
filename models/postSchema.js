@@ -1,0 +1,46 @@
+const { default: mongoose } = require('mongoose');
+const mangoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+const bcryptinzi = require('bcrypt-inzi');
+const { select } = require('underscore');
+const jwt = require('jsonwebtoken');
+
+const postSchema = mongoose.Schema({
+    shopname:{ type: String , required: true} ,
+    img:{ type: String } ,
+    imgback:{ type: String } ,
+
+     jobname:{ type: String , required : true} ,
+  
+     timing:{ type: String , required : true} ,
+      shoploc:{ type: String , required: true},
+      age:{ type: Number } ,
+  
+     workersReq:{ type:Number  , required:true} ,
+     experience:{ type: String } ,
+     
+     salary:{ type: Number ,required:true},
+     description:{ type: String },
+
+     tokens:[
+      {
+        token:{type: String , required:true   }
+      }
+     ] });
+
+     //token 
+postSchema.methods.generateAuthToken = async function(){
+    try{
+      let token= jwt.sign({_id: this._id},process.env.SECRET_KEY);//left id is of schema
+      this.tokens= this.tokens.concat({token:token}); //LEFT TOKEN is of userschema.right is of upper generated
+       await this.save();
+       return this.token;
+     }
+     catch(err){
+         console.log(err); 
+       }
+}
+const jobPost = mongoose.model('POST',postSchema);
+module.exports = jobPost;
+
+  

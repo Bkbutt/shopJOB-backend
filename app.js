@@ -1,0 +1,14 @@
+ const dotenv = require('dotenv');
+const mongoose =require('mongoose');
+const express =require('express');
+const app = express();
+app.use(express.json());
+const bcryptjs = require('bcryptjs');
+
+dotenv.config({path:'./config.env'});
+require('./db/conn');
+app.use(require('./routers/auth'));
+// const User = require('./models/userSchema');
+const PORT=process.env.PORT;
+  
+app.listen(PORT,()=>console.log(`listening to port ${PORT}`));

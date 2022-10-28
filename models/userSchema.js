@@ -1,10 +1,8 @@
 const { default: mongoose } = require('mongoose');
 const mangoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const bcryptinzi = require('bcrypt-inzi');
-const { select } = require('underscore');
+// const bcryptinzi = require('bcrypt-inzi');
 const jwt = require('jsonwebtoken');
-const { options } = require('nodemon/lib/config');
 
 
 const userSchema = mongoose.Schema({

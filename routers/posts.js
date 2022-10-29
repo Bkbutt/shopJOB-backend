@@ -12,6 +12,8 @@ const profile = require('../models/profileSchema');
 const e = require('express');
 
 const protect = require('../middleware/authMiddleware.js')
+var nodemailer = require('nodemailer');
+var handlebars = require('handlebars');
 
 router.get('/findjobs',(req,res)=>{res.send('here you can see jobs offeredd')});
 
@@ -39,7 +41,7 @@ router.post('/applyjob',async(req,res)=>{
       //if not fields return error fields are necessary
 
       try{
-            replacements = req.body
+            replacements = req.body 
             receiverEmail = req.body.receiverEmail
             try {
                   transporter = nodemailer.createTransport({
@@ -102,13 +104,13 @@ router.put('/post/search',(req,res) => {
             let { job, location, shop_name } = req.query
             let search = {}
             if(job){
-                  search["job"] = {job}
+                  search["job"] = job
             }
             if(location){
-                  search["location"] = {location}
+                  search["location"] = location
             }
             if(shop_name){
-                  search["shop_name"] = {shop_name}
+                  search["shop_name"] = shop_name
             }
             
             let post = await Post.find(search)

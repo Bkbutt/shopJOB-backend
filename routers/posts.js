@@ -83,7 +83,7 @@ router.post('/applyjob',async(req,res)=>{
    
 
 
-router.put('/post/:id',(req,res) => {
+router.put('/post/:id',async(req,res) => {
       try {
             let update = req.body
             let post = await Post.findByIdAndUpdate(id, update )
@@ -97,7 +97,7 @@ router.put('/post/:id',(req,res) => {
   
 
 //search
-router.put('/post/search',(req,res) => {
+router.put('/post/search',async(req,res) => {
       try {
             let { job, location, shop_name } = req.query
             let search = {}

@@ -13,7 +13,7 @@ const User = require('../models/userSchema');
 
 
 
-router.get('/user/:id',(req,res) => {
+router.get('/user/:id',async(req,res) => {
     try {
         let user = await User.find({ id: req.params.id })
         console.log("user after find", user)
@@ -26,7 +26,7 @@ router.get('/user/:id',(req,res) => {
 
 
 
-router.put('/user/:id',(req,res) => {
+router.put('/user/:id',async(req,res) => {
     try {
         let update = req.body
         let user = await User.findByIdAndUpdate(id, update )

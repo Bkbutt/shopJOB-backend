@@ -9,7 +9,7 @@ const cokiparser    = require('cookie-parser');
 const jobPost = require('../models/postSchema');
 const profile = require('../models/profileSchema');
 const e = require('express');
-const User = require('../models/userSchema');
+// const User = require('../models/userSchema');
 
 
 

@@ -8,6 +8,8 @@ const bcryptjs = require('bcryptjs');
 dotenv.config({path:'./config.env'});
 require('./db/conn');
 app.use(require('./routers/auth'));
+app.use(require('./routers/posts'));
+app.use(require('./routers/user'));
 // const User = require('./models/userSchema');
 const PORT=process.env.PORT;
   

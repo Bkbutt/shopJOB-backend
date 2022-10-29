@@ -1,6 +1,7 @@
 const express= require('express');
 const router = express.Router();
 require('../db/conn');
+const fs = require('fs');
 const User = require('../models/userSchema');
 const Post = require('../models/postSchema')
 const bcrypt= require('bcryptjs');
@@ -15,7 +16,7 @@ const protect = require('../middleware/authMiddleware.js')
 var nodemailer = require('nodemailer');
 var handlebars = require('handlebars');
 
-router.get('/findjobs',(req,res)=>{res.send('here you can see jobs offeredd')});
+// router.get('/findjobs',(req,res)=>{res.send('here you can see jobs offeredd')});
 
 
           
@@ -26,10 +27,12 @@ router.post('/postjob',async(req,res)=>{
             return res.status(422).json({error:"Please fill the required fields"}); 
       }
       try{
-            const post = new jobPost({shopname,img,imgback,jobname,timing,shoploc,age,workersReq,experience,salary,description});
+            const post = new jobPost(req.body);//no need to write all values
             await post.save();
+            return res.status(200).json({message:'job posted'});
       } catch(err){
             console.log(err);
+            return res.status(400).json({err});
       }                       
 });
 
@@ -49,12 +52,12 @@ router.post('/applyjob',async(req,res)=>{
                         port: 465,
                         secure: true,
                         auth: {
-                              user: "",
-                              pass: ""
+                              user: "bkbutt444@gmail.com",
+                              pass: "nkdzbxmyuusdjtwg"
                         }
                         
                   });
-                  readHTMLFile('./htmlTemplates/email.html', function(err, html) {
+                  readHTMLFile('./htmlTemplate/email.html', function(err, html) {
                         var template = handlebars.compile(html)
                         const htmlToSend = template(replacements);
 
@@ -70,12 +73,14 @@ router.post('/applyjob',async(req,res)=>{
                               console.log(error);
                         } else {
                               console.log('Email sent: ' + info.response);
-                              return info.response
+                              return res.status(200).json({message:'Email Sent!'});
                         }
                   });  
                   }); 
             } catch (error) {
-                  console.log(error);          
+                  console.log(error);   
+                  return res.status(400).json({error:error});
+       
             } 
             
       } catch(err){

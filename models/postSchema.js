@@ -8,25 +8,27 @@ const postSchema = mongoose.Schema({
     img:{ type: String } ,
     imgback:{ type: String } ,
 
-     jobname:{ type: String , required : true} ,
-  
-     timing:{ type: String , required : true} ,
-      shoploc:{ type: String , required: true},
-      age:{ type: Number } ,
-  
-     workersReq:{ type:Number  , required:true} ,
-     experience:{ type: String } ,
-     
-     salary:{ type: Number ,required:true},
-     description:{ type: String },
+    jobname:{ type: String , required : true} ,
 
-     tokens:[
+    timing:{ type: String , required : true} ,
+    shoploc:{ type: String , required: true},
+    age:{ type: Number } ,
+  
+    workersReq:{ type:Number  , required:true} ,
+    experience:{ type: String } ,
+    
+    salary:{ type: Number ,required:true},
+    description:{ type: String },
+
+    tokens:[
       {
         token:{type: String , required:true   }
       }
-     ] });
+    ]
+});
 
-     //token 
+
+//token 
 postSchema.methods.generateAuthToken = async function(){
     try{
       let token= jwt.sign({_id: this._id},process.env.SECRET_KEY);//left id is of schema

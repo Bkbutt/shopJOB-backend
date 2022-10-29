@@ -89,33 +89,33 @@ router.post('/applyjob',async(req,res)=>{
 });
    
 
-
+//update post
 router.put('/post/:id',async(req,res) => {
       try {
             let update = req.body
-            let post = await Post.findByIdAndUpdate(id, update )
+            let post = await Post.findByIdAndUpdate(req.params.id, update )
             console.log("user after findByIdAndUpdate", post)
             res.status(200).json({success: true, post: post })
       } catch (error) {
-          console.log("error in getting user")
-          res.status(400).json({error: "error in getting user info"})
+          console.log("error in updating post", error)
+          res.status(400).json({error: "error in updating post"})
       }
 });
   
 
 //search
-router.put('/post/search',async(req,res) => {
+router.get('/post/search',async(req,res) => {
       try {
-            let { job, location, shop_name } = req.query
+            let { jobname, shoploc, shopname } = req.query
             let search = {}
-            if(job){
-                  search["job"] = job
+            if(jobname){
+                  search["jobname"] = jobname
             }
-            if(location){
-                  search["location"] = location
+            if(shoploc){
+                  search["shoploc"] = shoploc
             }
-            if(shop_name){
-                  search["shop_name"] = shop_name
+            if(shopname){
+                  search["shopname"] = shopname
             }
             
             let post = await Post.find(search)
@@ -126,6 +126,18 @@ router.put('/post/search',async(req,res) => {
       }
 });
 
+
+
+router.get('/posts',async(req,res) => {
+      try {
+            
+            let post = await Post.find({})
+            res.status(200).json({ success: true, data: post })
+      } catch (error) {
+          console.log("error in getting user")
+          res.status(400).json({error: "error in getting user info"})
+      }
+});
  
 
 module.exports = router;

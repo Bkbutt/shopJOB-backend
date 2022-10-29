@@ -77,89 +77,46 @@ router.post('/register',async (req, res)=>{
             console.log(err);}
          });
           
-// fill post job form 
-
-      //  router.post('/postjob',async(req,res)=>{ 
-
-      //       const {shopname,img,imgback,jobname,timing,shoploc,age, workersReq,experience,salary,description}= req.body;
-
-      //           if(!shopname||!jobname||!timing||!shoploc||!workersReq||!salary){ //required credentials
-      //           return res.status(422).json({error:"Please fill the required fields"}); }
-      //      try{
-      //                const post = new jobPost({shopname,img,imgback,jobname,timing,shoploc,age,workersReq,experience,salary,description});//dbname:nameoffrontendField
-      //                await post.save();
-      //        } 
-
-      //       catch(err){
-      //           console.log(err);
-      //           }                           //  console.log(req.body); // /(/ res.json({message: req.body})    
-      //    });
 
 //settings
    // 
    
    router.post('/settings/changepass', async (req,res)=>{
-                 console.log("in the settinngs");
-             const {email,oldpass,newpass, cfmpass} = req.body;
-             if(!email || !oldpass ||!newpass || !cfmpass){
-               return res.status(400).json({message:"please fill credendials!"});
-             }
-   try{     
-
-             const user = await User.findOne({email:email});
-               
-           if(user) {
-               //  console.log('i am the user',user,oldpass);
-               const PassMatch =await bcrypt.compare(oldpass,user.password);
-               if(PassMatch){
-                           console.log('inside match password');
-                  if(newpass != cfmpass) {
-                     console.log('checking new passes');
-                      return res.status(422).json({error:' New passwords dont match!'}); 
-
-                        }
-                    else{
-                     user.set({password:newpass});
-                     await user.save();
-                      }
-           } else{ 
-                    console.log('pass old not match');
-                   return res.send(422).json({error:'invalid credential'}); 
-
-                }
-          }
-          else{ console.log('email not found');
-                    return res.send(422).json({error:'invalid credential'});  
-              }     
-         }   catch(err){
-            console.log(err);
+         console.log("in the settinngs");
+         const {email,oldpass,newpass, cfmpass} = req.body;
+         if(!email || !oldpass ||!newpass || !cfmpass){
+         return res.status(400).json({message:"please fill credendials!"});
          }
-   });
 
-      
-   // router.post('/settings/chamgeEmail', async (req,res)=>{
+         try{     
 
-   //    const { email , password} = req.body;
-          
-   //             const userExists = await User.findOne({email:email});
-   //             if (userExists){
-                  
-   //                res.status(400).json({message:'Email already Exists!'});
-   //             }
-   //             else{
-
-   //                userExists.set({email:email});
-   //                await userExists.save();
-   //             }
-   //  });
-
-
-
-
-
-
-
-
+            const user = await User.findOne({email:email});  
+            if(user) {
+                   console.log('i am the user',user);
+                  const PassMatch =await bcrypt.compare(oldpass,user.password);
+                  if(PassMatch){
+                     console.log('inside match password');
+                     if(newpass != cfmpass) {
+                        console.log('checking new passes');
+                        return res.status(422).json({error:' New passwords dont match!'}); 
+                     }else{
+                        user.set({password:newpass});
+                        await user.save();
+                        return res.status(200).json({message: "pasword changes successfully"})
+                     }
+                  }else{ 
+                     console.log('pass old not match');
+                     return res.status(422).json({error:'invalid credential'}); 
+                  }
+            }else{ 
+               console.log('user with this email not found');
+               return res.status(422).json({error:'user with this email not found'});  
+            }     
+         }catch(err){
+            console.log(err);
+            return res.status(400).json({message: "error in changing password"})
+         }
+});
 
 
 

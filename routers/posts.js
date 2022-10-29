@@ -12,7 +12,7 @@ const jobPost = require('../models/postSchema');
 const profile = require('../models/profileSchema');
 const e = require('express');
 
-const protect = require('../middleware/authMiddleware.js')
+const  protect  = require('../middleware/authMiddleware.js')
 var nodemailer = require('nodemailer');
 var handlebars = require('handlebars');
 
@@ -93,7 +93,7 @@ router.post('/applyjob',async(req,res)=>{
 router.put('/post/:id',async(req,res) => {
       try {
             let update = req.body
-            let post = await Post.findByIdAndUpdate(req.params.id, update )
+            let post = await Post.findByIdAndUpdate(req.params.id, update, { new: true } )
             console.log("user after findByIdAndUpdate", post)
             res.status(200).json({success: true, post: post })
       } catch (error) {
@@ -128,17 +128,34 @@ router.get('/post/search',async(req,res) => {
 
 
 
-router.get('/posts',async(req,res) => {
+router.get('/posts', protect, async(req,res) => {
       try {
             
             let post = await Post.find({})
             res.status(200).json({ success: true, data: post })
       } catch (error) {
-          console.log("error in getting user")
-          res.status(400).json({error: "error in getting user info"})
+          console.log("error in getting posts")
+          res.status(400).json({error: "error in getting posts"})
       }
 });
- 
+
+
+//delete post
+
+router.delete('/post/:id', protect, async(req,res) => {
+      try {
+            let post = await Post.findByIdAndDelete(req.params.id)
+            // console.log("deleted post ", post)
+            res.status(200).json({ success: true, message: "post deleted successfully" })
+      } catch (error) {
+          console.log("error in deleting post")
+          res.status(400).json({error: "error in deleting post"})
+      }
+});
+
+
+
+
 
 module.exports = router;
 

@@ -2,17 +2,15 @@ const jwt = require('jsonwebtoken')
 const User = require('../models/userSchema')
 
 const protect = async (req, res, next) => {
-
     let token
 
     
-    
+    // console.log("hearder", req.headers.authorization)
     if( req.headers.authorization && req.headers.authorization.startsWith('Bearer') ){
-        
         try {
             token = req.headers.authorization.split(' ')[1]
-            const decode =  jwt.verify(token, process.env.SECRET_TOKEN)
-            req.user = await User.findById(decode.id)
+            const decode =  jwt.verify(token, process.env.SECRET_KEY)
+            req.user = await User.findById(decode._id)
             next()
         } catch (error) {
             return res.status(401).json({
@@ -33,4 +31,4 @@ const protect = async (req, res, next) => {
 }
 
 
-module.exports = { protect }
+module.exports = protect 

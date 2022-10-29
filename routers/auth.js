@@ -65,8 +65,11 @@ router.post('/register',async (req, res)=>{
                       {  res.json({message:"invalid credendial1s !"});}//inval pass
                   else{
                      console.log('token',token);
-                  res.json({message:"login successful",
-                     token:token   });
+                  res.json({
+                     message:"login successful",
+                     token:token, 
+                     user: userLogin   
+                  });
                   }
             } 
             else {

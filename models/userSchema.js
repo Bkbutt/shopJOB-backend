@@ -36,10 +36,10 @@ userSchema.pre('save', async  function(next){
 });
 
 //token 
-userSchema.methods.generateAuthToken = async function(){
+userSchema.methods.generateAuthToken = async function(){ //_id: this._id, ...this(whole object user return,pehle me bs id token mede rhi thi token chota tha)
      try{
       // console.log("this in gen auth token", this)
-       let token= jwt.sign({_id: this._id },process.env.SECRET_KEY);//left id is of schema
+       let token= jwt.sign({...this },process.env.SECRET_KEY);//left id is of schema
        this.tokens= this.tokens.concat({token:token}); //LEFT TOKEN is of userschema.right is of upper generated
         // await this.save();
         // console.log(' token',token);

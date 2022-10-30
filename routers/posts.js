@@ -159,13 +159,13 @@ router.delete('/post/:id', protect, async(req,res) => {
 
 //get my post
 
-router.get('/mypost', protect, async(req,res) => {
+router.get('/myposts', protect, async(req,res) => {
       try {
             // console.log("get my post user", req.user._id)
             let posts = await Post.find({user_id: req.user._id})
             res.status(200).json({ success: true, data: posts })
       } catch (error) {
-          console.log("error in get my post")
+          console.log("error in get my post",error)
           res.status(400).json({error: "error in get my post"})
       }
 });

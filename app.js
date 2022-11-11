@@ -4,6 +4,9 @@ const express =require('express');
 const app = express();
 app.use(express.json());
 const bcryptjs = require('bcryptjs');
+const cors = require('cors');
+app.use(cors());
+app.options('*',cors());
 
 dotenv.config({path:'./config.env'});
 require('./db/conn');
